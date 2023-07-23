@@ -1,0 +1,6 @@
+- name: shadowsocks
+  type: ss
+  server: 52.36.49.214
+  port: 8388
+  cipher: aes-256-gcm
+  password: password
