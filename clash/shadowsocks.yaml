@@ -1,0 +1,56 @@
+#---------------------------------------------------#
+
+## The configuration file should be placed in $HOME/.config/clash/*.yaml.
+## This file is the basic configuration file for ClashX. Please create a new configuration file for modifications if possible.
+## Port settings should be modified in Menu Bar Icon -> Preferences -> More Configurations.
+## If you are unsure how to proceed, please refer to the Official GitHub Documentation at https://dreamacro.github.io/clash/
+#---------------------------------------------------#
+
+mode: rule
+log-level: info
+
+proxies:
+  - name: "shadowsocks"
+    type: ss
+    server: ipaddr
+    port: 8388
+    cipher: aes-256-gcm
+    password: "password"
+
+proxy-groups:
+  - name: MyProxy
+    type: select
+    proxies:
+      - shadowsocks
+  - name: MyDirect
+    type: select
+    proxies:
+      - DIRECT
+      - MyProxy
+
+rules:
+  # - DOMAIN-SUFFIX,google.com,DIRECT
+  # - DOMAIN-KEYWORD,google,DIRECT
+  # - DOMAIN,google.com,DIRECT
+  # - DOMAIN-SUFFIX,ad.com,REJECT
+  - DOMAIN-SUFFIX,signal.org,MyProxy
+  - DOMAIN-SUFFIX,bing.com,MyProxy
+  - DOMAIN-SUFFIX,microsoft.com,MyProxy
+  - GEOIP,CN,MyDirect
+  - PROCESS-NAME,aria2c,MyDirect
+  - PROCESS-NAME,fdm,MyDirect
+  - PROCESS-NAME,Folx,MyDirect
+  - PROCESS-NAME,NetTransport,MyDirect
+  - PROCESS-NAME,Thunder,MyDirect
+  - PROCESS-NAME,Transmission,MyDirect
+  - PROCESS-NAME,uTorrent,MyDirect
+  - PROCESS-NAME,WebTorrent,MyDirect
+  - PROCESS-NAME,WebTorrent Helper,MyDirect
+  - PROCESS-NAME,DownloadService,MyDirect
+  - PROCESS-NAME,Weiyun,MyDirect
+  - DOMAIN-KEYWORD,aria2,MyDirect
+  - DOMAIN-KEYWORD,xunlei,MyDirect
+  - DOMAIN-KEYWORD,yunpan,MyDirect
+  - DOMAIN-KEYWORD,Thunder,MyDirect
+  - DOMAIN-KEYWORD,XLLiveUD,MyDirect
+  - MATCH,MyProxy

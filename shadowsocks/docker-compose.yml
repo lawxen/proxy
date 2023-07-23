@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  ####Shadowsocks ####################################################
+  shadowsocks:
+    image: shadowsocks/shadowsocks-libev
+    ports:
+      - "8388:8388"
+    environment:
+      - METHOD=aes-256-gcm
+      - PASSWORD=password
+    restart: always
+
+### Network ###############################################
+networks:
+  backend:
+    driver: "bridge"
