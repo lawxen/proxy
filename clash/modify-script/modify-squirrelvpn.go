@@ -1,16 +1,15 @@
 package main
 
 import (
-  "io/ioutil"
+  "os"
   "log"
-
   "gopkg.in/yaml.v3"
 )
 
 func main() {
 
   // Load original YAML
-  dataBytes, err := ioutil.ReadFile("../squirrelvpn.yaml")
+  dataBytes, err := os.ReadFile("../squirrelvpn.yaml")
   if err != nil {
     log.Fatal(err)
   }
@@ -22,7 +21,7 @@ func main() {
   }
 
   // Load proxy YAML
-  proxyBytes, err := ioutil.ReadFile("proxy.yaml")
+  proxyBytes, err := os.ReadFile("proxy.yaml")
   if err != nil {
     log.Fatal(err)
   }
@@ -42,7 +41,7 @@ func main() {
   data["proxies"] = append(proxies, proxyConfigs...)
 
   // Load rules YAML
-  rulesBytes, err := ioutil.ReadFile("rules.yaml")
+  rulesBytes, err := os.ReadFile("rules.yaml")
   if err != nil {
     log.Fatal(err)
   }
@@ -71,14 +70,12 @@ func main() {
   groupProxies := proxyGroup["proxies"].([]interface{})
   proxyGroup["proxies"] = append(groupProxies, "shadowsocks")
 
-  // Marshal and write output
-  output, err := yaml.Marshal(data)
+  // Write output YAML
+  outFile, err := os.Create("../squirrelvpn-modified.yaml")
   if err != nil {
     log.Fatal(err)
   }
+  defer outFile.Close()
 
-  err = ioutil.WriteFile("../squirrelvpn-modified.yaml", output, 0644)
-  if err != nil {
-    log.Fatal(err)
-  }
+  yaml.NewEncoder(outFile).Encode(data)
 }
