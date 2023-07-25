@@ -1,4 +1,4 @@
-module proxy/clash/modify-script
+module proxy/clash/modify-script/golang
 
 go 1.20
 
