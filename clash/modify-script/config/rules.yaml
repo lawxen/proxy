@@ -1,2 +1,3 @@
-- DOMAIN-SUFFIX,openai.com,shadowsocks
-- DOMAIN-SUFFIX,claude.ai,shadowsocks
+rules:
+  - DOMAIN-SUFFIX,openai.com,shadowsocks
+  - DOMAIN-SUFFIX,claude.ai,shadowsocks

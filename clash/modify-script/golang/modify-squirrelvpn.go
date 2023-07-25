@@ -1,9 +1,9 @@
 package main
 
 import (
-  "gopkg.in/yaml.v3"
-  "log"
-  "os"
+	"gopkg.in/yaml.v3"
+	"log"
+	"os"
 )
 
 func loadYAML(path string, v interface{}) {
@@ -20,26 +20,22 @@ func loadYAML(path string, v interface{}) {
 
 func main() {
 
-	var data map[string]interface{}
+	var data, proxyConfig, rulesConfigs map[string]interface{}
 
 	// Load original YAML
 	loadYAML("../../squirrelvpn.yaml", &data)
 
-	// Load proxy YAML
-	var proxyConfigs []interface{}
-	loadYAML("../config/proxy.yaml", &proxyConfigs)
-
-	// Append proxies
+	// Load additional roxies and append them
+	loadYAML("../config/proxies.yaml", &proxyConfig)
 	proxies := data["proxies"].([]interface{})
-	data["proxies"] = append(proxies, proxyConfigs...)
+	proxiesAdditional := proxyConfig["proxies"].([]interface{})
+	data["proxies"] = append(proxies, proxiesAdditional...)
 
-	// Load rules YAML
-	var rulesConfigs []interface{}
+	// Load additional rules and prepend them
 	loadYAML("../config/rules.yaml", &rulesConfigs)
-
-	// Prepend rules
 	rules := data["rules"].([]interface{})
-	data["rules"] = append(rulesConfigs, rules...)
+	rulesAdditional := rulesConfigs["rules"].([]interface{})
+	data["rules"] = append(rulesAdditional, rules...)
 
 	// Add proxy to groups
 	proxyGroups := data["proxy-groups"].([]interface{})

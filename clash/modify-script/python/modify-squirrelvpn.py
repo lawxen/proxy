@@ -1,4 +1,4 @@
-# Modify the config file of SquirrelVPN to add shadowsocks proxy and bypass some site like openai.com and claude.ai\
+# Modify the config file of SquirrelVPN to add shadow-socks proxy and bypass some site like openai.com and claude.ai\
 # How to use:
 # pip install pyyaml
 # python modify-squirrelvpn.py
@@ -14,7 +14,7 @@ with open('../../squirrelvpn.yaml',encoding='utf8') as f:
     data = yaml.safe_load(f)
 
 # Load proxy.yaml containing shadowsocks proxy config    
-with open('../config/proxy.yaml',encoding='utf8') as f:
+with open('../config/proxies.yaml',encoding='utf8') as f:
     proxy = yaml.safe_load(f)
 
 # Append imported proxy to proxies list    
