@@ -25,7 +25,7 @@ func main() {
 	// Load original YAML
 	loadYAML("../../squirrelvpn.yaml", &data)
 
-	// Load additional roxies and append them
+	// Load additional proxies and append them
 	loadYAML("../config/proxies.yaml", &proxyConfig)
 	proxies := data["proxies"].([]interface{})
 	proxiesAdditional := proxyConfig["proxies"].([]interface{})
